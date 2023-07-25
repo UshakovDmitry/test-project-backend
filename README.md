@@ -16,8 +16,9 @@ Test Project Backend,разработано с использованием  Exp
 
 ## Установка и запуск
 
- Клонируйте репозиторий и перейдите в директорию проекта:
+ Клонируйте рcепозиторий и перейдите в директорию проекта:
 
 ```bash
 git clone git@github.com:UshakovDmitry/test-project-backend.git
 cd test-project-backend
+git 
