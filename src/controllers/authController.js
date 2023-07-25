@@ -6,7 +6,8 @@ exports.register = async (req, res, next) => {
   const errors = validationResult(req);
 
   if (!errors.isEmpty()) {
-    return res.status(400).json({ message: "Пустые поля не принимаю" });
+    const errorMessage = errors.array().map(error => error.msg).join(', ');
+    return res.status(400).json({ message: `Ошибка валидации: ${errorMessage}` });
   }
 
   const { email, password, name } = req.body;
@@ -15,7 +16,7 @@ exports.register = async (req, res, next) => {
     let user = await User.findOne({ email });
 
     if (user) {
-      return res.status(400).json({ message: 'Пользователь уже существует' });
+      return res.status(400).json({ message: 'Ошибка: пользователь с данным email уже существует.' });
     }
 
     user = new User({ email, password, name });
@@ -23,7 +24,7 @@ exports.register = async (req, res, next) => {
 
     res.status(201).json(user);
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    res.status(500).json({ message: `Ошибка сервера: ${error.message}` });
   }
 };
 
@@ -34,7 +35,7 @@ exports.login = async (req, res, next) => {
     const user = await User.findOne({ email });
 
     if (!user || user.password !== password) {
-      return res.status(401).json({ message: 'Неверный email или пароль' });
+      return res.status(401).json({ message: 'Ошибка: неверный email или пароль.' });
     }
 
     const token = jwt.sign({ userId: user.id }, 'secret', { expiresIn: '1h' });
@@ -44,6 +45,6 @@ exports.login = async (req, res, next) => {
       user: { email: user.email, name: user.name }
     });
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    res.status(500).json({ message: `Ошибка сервера: ${error.message}` });
   }
 };
