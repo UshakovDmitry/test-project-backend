@@ -1,21 +1,3 @@
-
-// const express = require("express");
-// const cors = require("cors");
-// const jwt = require("jsonwebtoken");
-// const authRoutes = require("./routes/authRoutes");
-// const feedbackRoutes = require("./routes/feedbackRoutes");
-
-
-// const app = express();
-
-// app.use(cors());
-// app.use(express.json());
-// app.use("/api/auth", authRoutes);
-// app.use("/api/feedback", feedbackRoutes);
-
-
-// app.listen(8000, () => console.log("Server has been started on port 8000"));
-
 const express = require("express");
 const cors = require("cors");
 const jwt = require("jsonwebtoken");
